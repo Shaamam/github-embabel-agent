@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.3'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.embabel'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://repo.embabel.com/artifactory/libs-snapshot'
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Embabel Agent Framework
+    implementation 'com.embabel.agent:embabel-agent-starter:0.1.0-SNAPSHOT'
+    testImplementation 'com.embabel.agent:embabel-agent-test:0.1.0-SNAPSHOT'
+
+    // GitHub API Integration
+    implementation 'org.kohsuke:github-api:1.321'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
